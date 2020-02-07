@@ -11,6 +11,8 @@ Vue.use(VueI18n)
 
 const app = {}
 
+// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+// Create VueI18n instance with options
 app.i18n = new VueI18n({
     locale: 'fr',
     fallbackLocale: 'en',
@@ -41,6 +43,7 @@ app._locale = (lang) => {
     return lang;
 };
 
+// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 app.router = new VueRouter({
     routes: [
         { path: '/foo', component: () => import('./foo.js') },
@@ -52,11 +55,45 @@ app.router = new VueRouter({
     },
 });
 
+// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 app.vue = new Vue({
     i18n: app.i18n,
     router: app.router,
     el: '#app',
+
     data: {
+        userrole: 'Admin',
+        username: '',
+        firstname: 'Fabien',
+        mailhash: '06b61d1339e375ed6a4fa6e97e985266',
+        appname: '',
+        appcateg: '',
+        active: '',
+    },
+
+    created: function () {
+        this.$nextTick(function () {
+            // this.appname = this.$route.path
+            // console.log('App created', this.$route.path)
+            var idx = this.$route.path.indexOf('/', 1)
+            this.appcateg = this.$route.path.substring(1, idx > 0 ? idx : this.$route.path.length)
+            console.log('App', this.appcateg)
+        })
+    },
+    updated: function () {
+        this.$nextTick(function () {
+            // this.appname = this.$route.path
+            var idx = this.$route.path.indexOf('/', 1)
+            this.appcateg = this.$route.path.substring(1, idx > 0 ? idx : this.$route.path.length)
+            console.log('App', this.appcateg)
+        })
+    },
+
+    // Functions we will be using.
+    methods: {
+        gravatar: function() {
+            return `https://secure.gravatar.com/avatar/${this.mailhash}?s=100`
+        }
     }
 })
 

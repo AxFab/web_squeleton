@@ -1,7 +1,5 @@
 'use strict'
 
-const path = require('path');
-
 module.exports = {
     mode: 'development',
     entry: './src/app.js',
@@ -12,5 +10,9 @@ module.exports = {
     },
     devtool: "source-map",
     target: "web",
-    resolve: { alias: { vue: 'vue/dist/vue.esm.js' } }
+    resolve: { 
+        alias: { 
+            vue: 'vue/dist/vue.esm.js' 
+        } 
+    }
 };
